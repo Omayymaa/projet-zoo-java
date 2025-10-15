@@ -1,8 +1,8 @@
 package tn.esprit.gestionzoo.entities;
-public class Animal {
+public sealed class Animal permits Aquatic,Terrestrial {
     private String family;
-    private String name;
-    private int age;
+    protected String name;
+    protected int age;
     private boolean isMammal;
     public Animal(){}
     // Constructeur paramétré
@@ -11,6 +11,10 @@ public class Animal {
         this.name = name;
         this.age = age;
         this.isMammal = isMammal;
+    }
+    public Animal(String name, int age) {
+        this.name = name;
+        this.age = age;
     }
     public String getFamily() {
         return family;

@@ -1,7 +1,6 @@
 package tn.esprit.gestionzoo.main;
 
-import tn.esprit.gestionzoo.entities.Animal;
-import tn.esprit.gestionzoo.entities.Zoo;
+import tn.esprit.gestionzoo.entities.*;
 
 import java.util.Scanner;
 
@@ -72,5 +71,24 @@ public class ZooManagement {
         Zoo plusGrand = Zoo.comparerZoo(myZoo1, myZoo);
         System.out.println("Le zoo qui a le plus d'animaux est : " + plusGrand.getName());
 
+
+        Aquatic a = new Aquatic();
+        Terrestrial t = new Terrestrial();
+        Dolphin d = new Dolphin();
+        Penguin p = new Penguin();
+
+        Aquatic a1 = new Aquatic("Fish", 2, "bassin");
+        Terrestrial t1 = new Terrestrial("Lion", 5, 4);
+        Dolphin d1 = new Dolphin("Flipper", 3, "océan", 25.6f);
+        Penguin p1 = new Penguin("Pingo", 4, "antarctique", 50.0f);
+
+        System.out.println(a1);
+        System.out.println(t1);
+        System.out.println(d1);
+        System.out.println(p1);
+
+        a1.swim();
+        d1.swim();
+        p1.swim();
     }
 }
