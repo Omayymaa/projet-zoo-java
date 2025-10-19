@@ -72,23 +72,39 @@ public class ZooManagement {
         System.out.println("Le zoo qui a le plus d'animaux est : " + plusGrand.getName());
 
 
-        Aquatic a = new Aquatic();
         Terrestrial t = new Terrestrial();
         Dolphin d = new Dolphin();
         Penguin p = new Penguin();
 
-        Aquatic a1 = new Aquatic("Fish", 2, "bassin");
-        Terrestrial t1 = new Terrestrial("Lion", 5, 4);
-        Dolphin d1 = new Dolphin("Flipper", 3, "océan", 25.6f);
-        Penguin p1 = new Penguin("Pingo", 4, "antarctique", 50.0f);
 
-        System.out.println(a1);
-        System.out.println(t1);
+        Aquatic d1 = new Dolphin("Flipper", 5, "Océan", 25.5f);
+        Aquatic p1 = new Penguin("Pingo", 3, "Arctique", 15.0f);
+        Aquatic p2 = new Penguin("Poli", 4, "Antarctique", 22.3f);
+
+
         System.out.println(d1);
         System.out.println(p1);
+        System.out.println(p2);
 
-        a1.swim();
+
         d1.swim();
         p1.swim();
+        p2.swim();
+
+
+        myZoo1.addAquaticAnimal(d1);
+        myZoo1.addAquaticAnimal(p1);
+        myZoo1.addAquaticAnimal(p2);
+
+        myZoo1.makeAllSwim();
+
+
+        System.out.println("Profondeur maximale des pingouins : " + myZoo1.maxPenguinSwimmingDepth() + " m");
+
+
+        myZoo1.displayNumberOfAquaticsByType();
+
+        Aquatic p3 = new Penguin("Pingo", 3, "Arctique", 15.0f);
+        System.out.println("p1 equals p3 ? " + p1.equals(p3));
     }
 }

@@ -32,7 +32,7 @@ public sealed class Animal permits Aquatic,Terrestrial {
         return age;
     }
     public void setAge(int age) {
-        if (age>0)  {
+        if (age<0)  {
             System.out.println("un animal ne peut avoir un age négatif !");
         }
         else {

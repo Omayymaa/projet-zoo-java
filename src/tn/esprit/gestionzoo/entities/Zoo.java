@@ -1,5 +1,7 @@
 package tn.esprit.gestionzoo.entities;
 public class Zoo {
+    private Aquatic[] aquaticAnimals = new Aquatic[10];
+    private int aquaticCount = 0;
     private Animal[] animals = new Animal[25]; // max 25 animaux
     private String name;
     private String city;
@@ -90,4 +92,49 @@ public class Zoo {
         else
             return z2;
     }
+
+    public void addAquaticAnimal(Aquatic aquatic){
+        if (aquaticCount < aquaticAnimals.length) {
+            aquaticAnimals[aquaticCount++] = aquatic;
+        } else {
+            System.out.println("Le zoo est plein !");
+        }
+    }
+
+    public void makeAllSwim() {
+        for (int i = 0; i < aquaticCount; i++) {
+            aquaticAnimals[i].swim();
+        }
+    }
+
+    public float maxPenguinSwimmingDepth() {
+        float maxDepth = 0;
+        for (int i = 0; i < aquaticCount; i++) {
+            if (aquaticAnimals[i] instanceof Penguin) {
+                Penguin p = (Penguin) aquaticAnimals[i];
+                if (p.getSwimmingDepth() > maxDepth) {
+                    maxDepth = p.getSwimmingDepth();
+                }
+            }
+        }
+        return maxDepth;
+    }
+
+
+    public void displayNumberOfAquaticsByType() {
+        int dolphinCount = 0;
+        int penguinCount = 0;
+
+        for (int i = 0; i < aquaticCount; i++) {
+            if (aquaticAnimals[i] instanceof Dolphin)
+                dolphinCount++;
+            else if (aquaticAnimals[i] instanceof Penguin)
+                penguinCount++;
+        }
+
+        System.out.println("Nombre de dauphins : " + dolphinCount);
+        System.out.println("Nombre de pingouins : " + penguinCount);
+    }
+
+
 }
