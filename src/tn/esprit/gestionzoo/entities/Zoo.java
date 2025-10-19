@@ -1,10 +1,12 @@
 package tn.esprit.gestionzoo.entities;
 public class Zoo {
+    private Aquatic[] aquaticAnimals = new Aquatic[10];
+    private int aquaticCount = 0;
     private Animal[] animals = new Animal[25]; // max 25 animaux
     private String name;
     private String city;
     private final int nbrCages = 25;
-    int nbrAnimal = 0 ;
+    private int nbrAnimal = 0 ;
 
     public Zoo(){}
     // Constructeur paramétré
@@ -30,6 +32,10 @@ public class Zoo {
         this.city = city;
     }
 
+    public int getNbrAnimal() {
+        return nbrAnimal;
+    }
+
     public void displayZoo() {
         System.out.println("Zoo : " + name + ", Ville : " + city + ", Cages : " + nbrCages);
     }
@@ -37,26 +43,35 @@ public class Zoo {
     public String toString() {
         return "Zoo [Nom=" + name + ", Ville=" + city + ", Cages=" + nbrCages + "]";
     }
-    public boolean addAnimal(Animal animal) {
-            if (isZooFull()) {
-                System.out.println("Interdit de dépasser le nombre d'animaux !");
-                return false;
-            }
-            if (searchAnimal(animal) != -1) {
-                System.out.println("l' animal " + animal.getName() + " existe déja dans le zoo !");
-                return false;
-            }
-            animals[nbrAnimal] = animal ;
-            nbrAnimal++;
-            System.out.println("Le nouveau animal " + animal.getName() + " est ajouté avec succées.");
-            return  true;
+
+
+    public void addAnimal(Animal animal) throws ZooFullException, InvalidAgeException {
+        if (animal.getAge() < 0) {
+            throw new InvalidAgeException("Âge d’animal invalide : l’âge ne peut pas être négatif.");
+        }
+
+        if (nbrAnimal >= nbrCages) {
+            throw new ZooFullException("Le zoo est plein, impossible d’ajouter un nouvel animal.");
+        }
+
+        if (searchAnimal(animal) != -1) {
+            System.out.println(" L’animal " + animal.getName() + " existe déjà dans le zoo !");
+            return; // Pas une exception ici, juste une information
+        }
+
+        animals[nbrAnimal] = animal;
+        nbrAnimal++;
+        System.out.println(" L’animal " + animal.getName() + " a été ajouté avec succès.");
     }
+
+
     public void afficherAnimaux() {
         System.out.println("Les animaux du zoo : ");
         for (int i = 0; i < nbrAnimal ; i++) {
             System.out.println("Animal "+ (i + 1) + " :  " + animals[i]);
         }
     }
+
     public int searchAnimal(Animal animal){
         for (int i = 0; i < nbrAnimal ; i++) {
            if (animals[i].getName() == animal.getName())
@@ -90,4 +105,49 @@ public class Zoo {
         else
             return z2;
     }
+
+    public void addAquaticAnimal(Aquatic aquatic){
+        if (aquaticCount < aquaticAnimals.length) {
+            aquaticAnimals[aquaticCount++] = aquatic;
+        } else {
+            System.out.println("Le zoo est plein !");
+        }
+    }
+
+    public void makeAllSwim() {
+        for (int i = 0; i < aquaticCount; i++) {
+            aquaticAnimals[i].swim();
+        }
+    }
+
+    public float maxPenguinSwimmingDepth() {
+        float maxDepth = 0;
+        for (int i = 0; i < aquaticCount; i++) {
+            if (aquaticAnimals[i] instanceof Penguin) {
+                Penguin p = (Penguin) aquaticAnimals[i];
+                if (p.getSwimmingDepth() > maxDepth) {
+                    maxDepth = p.getSwimmingDepth();
+                }
+            }
+        }
+        return maxDepth;
+    }
+
+
+    public void displayNumberOfAquaticsByType() {
+        int dolphinCount = 0;
+        int penguinCount = 0;
+
+        for (int i = 0; i < aquaticCount; i++) {
+            if (aquaticAnimals[i] instanceof Dolphin)
+                dolphinCount++;
+            else if (aquaticAnimals[i] instanceof Penguin)
+                penguinCount++;
+        }
+
+        System.out.println("Nombre de dauphins : " + dolphinCount);
+        System.out.println("Nombre de pingouins : " + penguinCount);
+    }
+
+
 }

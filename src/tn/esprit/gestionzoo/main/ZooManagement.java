@@ -50,18 +50,12 @@ public class ZooManagement {
 
         myZoo1.displayZoo();
         System.out.println(myZoo1);
-        System.out.println("Ajout d'animal : " + myZoo1.addAnimal(chat));
-        System.out.println("Ajout d'animal : " + myZoo1.addAnimal(lion1));
-        System.out.println("Ajout d'animal : " + myZoo1.addAnimal(lion1));
-        System.out.println("Ajout d'animal : " + myZoo1.addAnimal(lion1));
 
         myZoo1.afficherAnimaux();
         System.out.println("La recherche de l'animal retourne : "+ myZoo1.searchAnimal(lion1));
         System.out.println("La recherche de l'animal retourne : "+ myZoo1.searchAnimal(lion));
         System.out.println("La recherche de l'animal retourne : "+ myZoo1.searchAnimal(dauphin));
 
-        myZoo1.addAnimal(dauphin);
-        myZoo1.addAnimal(lion1);
 
         myZoo1.removeAnimal(lion);
         myZoo1.afficherAnimaux();
@@ -72,23 +66,62 @@ public class ZooManagement {
         System.out.println("Le zoo qui a le plus d'animaux est : " + plusGrand.getName());
 
 
-        Aquatic a = new Aquatic();
         Terrestrial t = new Terrestrial();
         Dolphin d = new Dolphin();
         Penguin p = new Penguin();
 
-        Aquatic a1 = new Aquatic("Fish", 2, "bassin");
-        Terrestrial t1 = new Terrestrial("Lion", 5, 4);
-        Dolphin d1 = new Dolphin("Flipper", 3, "océan", 25.6f);
-        Penguin p1 = new Penguin("Pingo", 4, "antarctique", 50.0f);
 
-        System.out.println(a1);
-        System.out.println(t1);
+        Aquatic d1 = new Dolphin("Flipper", 5, "Océan", 25.5f);
+        Aquatic p1 = new Penguin("Pingo", 3, "Arctique", 15.0f);
+        Aquatic p2 = new Penguin("Poli", 4, "Antarctique", 22.3f);
+
+
         System.out.println(d1);
         System.out.println(p1);
+        System.out.println(p2);
 
-        a1.swim();
+
         d1.swim();
         p1.swim();
+        p2.swim();
+
+
+        myZoo1.addAquaticAnimal(d1);
+        myZoo1.addAquaticAnimal(p1);
+        myZoo1.addAquaticAnimal(p2);
+
+        myZoo1.makeAllSwim();
+
+
+        System.out.println("Profondeur maximale des pingouins : " + myZoo1.maxPenguinSwimmingDepth() + " m");
+
+
+        myZoo1.displayNumberOfAquaticsByType();
+
+        Aquatic p3 = new Penguin("Pingo", 3, "Arctique", 15.0f);
+        System.out.println("p1 equals p3 ? " + p1.equals(p3));
+
+
+        try {
+            myZoo1.addAnimal(chat);
+        } catch (ZooFullException | InvalidAgeException e) {
+            System.out.println("Erreur : " + e.getMessage());
+        }
+        System.out.println("Nombre d’animaux : " + myZoo1.getNbrAnimal());
+
+        try {
+            myZoo1.addAnimal(lion);
+        } catch (ZooFullException | InvalidAgeException e) {
+            System.out.println("Erreur : " + e.getMessage());
+        }
+        System.out.println("Nombre d’animaux : " + myZoo1.getNbrAnimal());
+
+        try {
+            Animal singe = new Animal("Primates", "Singe", -3, true);
+            myZoo1.addAnimal(singe);
+        } catch (ZooFullException | InvalidAgeException e) {
+            System.out.println("Erreur : " + e.getMessage());
+        }
+        System.out.println("Nombre d’animaux : " + myZoo1.getNbrAnimal());
     }
 }
